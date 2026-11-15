@@ -48,8 +48,10 @@ def test_signature_deterministic():
 
 
 def test_signature_changes_with_matrix():
-    w1 = _power_law_matrix(seed=1)
-    w2 = _power_law_matrix(seed=2)
+    # Same exponent => identical singular values regardless of seed, so signatures
+    # legitimately match. Use different exponents to get different spectra.
+    w1 = _power_law_matrix(exponent=1.5, seed=1)
+    w2 = _power_law_matrix(exponent=2.5, seed=1)
     assert behavior_signature(w1) != behavior_signature(w2)
 
 
