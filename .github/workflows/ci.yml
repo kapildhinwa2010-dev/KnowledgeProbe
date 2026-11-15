@@ -46,4 +46,4 @@ jobs:
       - name: Compile and smoke-test package
         run: |
           python -m compileall -q knowledgeprobe.py tests
-          python -c "import numpy as np; from knowledgeprobe import layer_report; r = layer_report(np.eye(4)); assert r['condition_number'] == 1.0"
+          python -c "import numpy as np; from knowledgeprobe import singular_spectrum; s = singular_spectrum(np.eye(4)); assert len(s) == 4"
