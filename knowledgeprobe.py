@@ -58,7 +58,9 @@ def behavior_signature(matrix: np.ndarray, bins: int = 16) -> str:
     s = s[s > 0]
     if s.size == 0:
         s = np.array([1e-30])
-    hist, _ = np.histogram(np.log10(s), bins=bins)
+    # Fixed bin edges over a documented log-range so the signature reflects the
+    # actual spectrum values, not just the (auto-normalized) shape.
+    hist, _ = np.histogram(np.log10(s), bins=bins, range=(-12.0, 0.0))
     payload = hist.astype(np.int64).tobytes()
     return hashlib.sha256(payload).hexdigest()
 
